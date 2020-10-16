@@ -1,7 +1,7 @@
 # Site settings
 baseURL = "https://napatmat.netlify.app/"
 languageCode = "en-us"
-title = "Napat M."
+title = "Portfolio website, Napat M."
 theme = "forty"
 
 # Enter your tracking code to enable Google Analytics
@@ -20,7 +20,7 @@ disqusShortname = ""
 
   # Provide your metadata here.
   name = "Napat Matchaseth"
-  description = "Napat's description"
+  description = "Masters in Financial Analysis, London Business School"
 
   # Link custom assets relative to /static
   custom_css = []
@@ -37,8 +37,8 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-    title = "Forty"
-    subtitle = "By HTML5 Up"
+    title = "Napat M."
+    # subtitle = "By HTML5 Up"
     menu = "Menu"
     # Optional logo as brand stored in img/
     # logo = "logo.png"
@@ -47,17 +47,17 @@ disqusShortname = ""
       name = "Home"
       url = "#"
 
-    [[params.navigation.links]]
-      name = "Blogs"
-      url = "blogs"
+#    [[params.navigation.links]]
+#      name = "Blogs"
+#      url = "blogs"
 
-    [[params.navigation.links]]
-      name = "Generic Blog"
-      url = "blogs/ipsum"
+#    [[params.navigation.links]]
+#      name = "Generic Blog"
+#      url = "blogs/ipsum"
 
-    [[params.navigation.links]]
-      name = "Elements"
-      url = "elements.html"
+#    [[params.navigation.links]]
+#      name = "Elements"
+#      url = "elements.html"
 
     # Add custom links here by uncommenting code below. To remove links just delete
     # the [[params.navigation.links]] map associated with that link. Copy and paste
@@ -72,17 +72,17 @@ disqusShortname = ""
       url = "blogs"
 
     # Button Style 2
-    [[params.navigation.button2]]
-      name = "Log In"
-      url = "#"
+#    [[params.navigation.button2]]
+#      name = "Log In"
+#      url = "#"
 
 
   # Banner section
   [params.banner]
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
-    title = "Hi, my name is Napat"
-    subtitle = "This is my portfolio website"
+    title = "Welcome to Napat Matchaseth's website"
+    subtitle = "This is my data analytics portfolio"
     buttonText = "Start Exploring"
 
   [params.blog]
@@ -92,17 +92,6 @@ disqusShortname = ""
     # For more informtion take a look at the README.
     # To add more blogs just copy and paste the code.
 
-  # Section Type Two
-  [params.two]
-    enable = true
-    title = "About me"
-    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
-    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
-    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
-    Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
-    Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
-    buttonText = "Get Started"
-    url = "blogs"
 
   # Tiles Section
   [params.tiles]
@@ -133,20 +122,35 @@ disqusShortname = ""
       image = "pic04.jpg"
       url = "blogs/ipsum"
 
-    [[params.tiles.showcase]]
-      title = "Consequat"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic05.jpg"
-      url = "blogs/ipsum"
+#    [[params.tiles.showcase]]
+#      title = "Consequat"
+#      subtitle = "Ipsum Dolor Sit Amet"
+#      image = "pic05.jpg"
+#      url = "blogs/ipsum"
 
-    [[params.tiles.showcase]]
-      title = "Etiam"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic06.jpg"
-      url = "blogs/ipsum"
+#    [[params.tiles.showcase]]
+#      title = "Etiam"
+#      subtitle = "Feugiat Amet Tempus"
+#      image = "pic06.jpg"
+#      url = "blogs/ipsum"
     # You can make more showcases by copy and pasting the code above
 
-
+  # Section Type Two
+  [params.two]
+    enable = true
+    title = "About this website"
+    subtitle = """
+    My name is Napat Matchaseth, and I am currently a Masters in Financial Analysis student at London Business School.
+    Previously, I graduated from London School of Economics and then worked in strategy consulting for a year.
+    Currently, I am looking for a career change into financial services industry, particularly in asset management. 
+    Data science has become increasingly popular, especially in financial services industry.
+    Therefore, I am eager to learn about various methods of data analytics. 
+    This website contains a preview of some of my work during core data analytics course.
+    Enjoy!"""
+    buttonText = "My projects"
+    url = "blogs"
+    buttonText2 = "My CV"
+    url2 = "blogs"
 
 
   # Contact section
