@@ -145,7 +145,7 @@ disqusShortname = ""
     Currently, I am looking for a career change into financial services industry, particularly in asset management. 
     Data science has become increasingly popular, especially in financial services industry.
     Therefore, I am eager to learn about various methods of data analytics. 
-    This website contains a preview of some of my work during core data analytics course.
+    This website contains a preview of  my work from my data analytics course.
     Enjoy!"""
     buttonText = "My projects"
     url = "blogs"
@@ -210,7 +210,4 @@ disqusShortname = ""
       url= "https://www.linkedin.com/in/napat-tae-matchaseth-072871172/"
       label = "LinkedIn"
 
-    [[params.footer.quicklinks]]
-      text = "Design: "
-      url= "https://www.html5up.net"
-      alt = "HTML5 UP"
+
