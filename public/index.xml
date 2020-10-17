@@ -8,39 +8,44 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 31 Oct 2017 22:42:51 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Aliquam</title>
+      <title>Alcohol consumption around the world</title>
       <link>/blogs/aliquam/</link>
       <pubDate>Tue, 31 Oct 2017 22:42:51 -0500</pubDate>
       
       <guid>/blogs/aliquam/</guid>
-      <description></description>
+      <description>Where Do People Drink The Most Beer, Wine And Spirits?Back in 2014, fivethiryeight.com published an article on alchohol consumption in different countries. The data drinks is available as part of the fivethirtyeight package. Make sure you have installed the fivethirtyeight package before proceeding.
+library(fivethirtyeight)data(drinks)# or download directly# alcohol_direct &amp;lt;- read_csv(&amp;quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv&amp;quot;)What are the variable types? Any missing values we should worry about?
+# Glimpse at dataglimpse(drinks)## Rows: 193## Columns: 5## $ country &amp;lt;chr&amp;gt; &amp;quot;Afghanistan&amp;quot;, &amp;quot;Albania&amp;quot;, &amp;quot;Algeria&amp;quot;, &amp;quot;.</description>
     </item>
     
     <item>
-      <title>Tempus</title>
+      <title>2016 US presidential election contributors</title>
       <link>/blogs/tempus/</link>
       <pubDate>Tue, 31 Oct 2017 22:26:13 -0500</pubDate>
       
       <guid>/blogs/tempus/</guid>
-      <description></description>
+      <description>2016 California ContributorsAs discussed in class, I would like you to reproduce the plot that shows the top ten cities in highest amounts raised in political contributions in California during the 2016 US Presidential election.
+To get this plot, you must join two dataframes; the one you have with all contributions, and data that can translate zipcodes to cities.You can find a file with all US zipcodes, e.</description>
     </item>
     
     <item>
-      <title>Magna</title>
+      <title>TfL bike rentals</title>
       <link>/blogs/magna/</link>
       <pubDate>Tue, 31 Oct 2017 22:26:09 -0500</pubDate>
       
       <guid>/blogs/magna/</guid>
-      <description></description>
+      <description>Challenge 2: Excess rentals in TfL bike sharingRecall the TfL data on how many bikes were hired every single day. We can get the latest data by running the following
+url &amp;lt;- &amp;quot;https://data.london.gov.uk/download/number-bicycle-hires/ac29363e-e0cb-47cc-a97a-e216d900a6b0/tfl-daily-cycle-hires.xlsx&amp;quot;# Download TFL data to temporary filehttr::GET(url, write_disk(bike.temp &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))## Response [https://airdrive-secure.s3-eu-west-1.amazonaws.com/london/dataset/number-bicycle-hires/2020-09-18T09%3A06%3A54/tfl-daily-cycle-hires.xlsx?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;amp;X-Amz-Credential=AKIAJJDIMAIVZJDICKHA%2F20201017%2Feu-west-1%2Fs3%2Faws4_request&amp;amp;X-Amz-Date=20201017T174321Z&amp;amp;X-Amz-Expires=300&amp;amp;X-Amz-Signature=a6f601a31bad2795cea4f6ab7f5118ba2c753703d3419e29467ad9e5086eaee5&amp;amp;X-Amz-SignedHeaders=host]## Date: 2020-10-17 17:43## Status: 200## Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet## Size: 165 kB## &amp;lt;ON DISK&amp;gt; C:\Users\Napat\AppData\Local\Temp\RtmpCm1scZ\file38486979b3d.xlsx# Use read_excel to read it as dataframebike0 &amp;lt;- read_excel(bike.</description>
     </item>
     
     <item>
-      <title>Project 4</title>
+      <title>GDP components over time &amp; among countries</title>
       <link>/blogs/ipsum/</link>
       <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
       
       <guid>/blogs/ipsum/</guid>
-      <description>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</description>
+      <description>At the risk of oversimplifying things, the main components of gross domestic product, GDP are personal consumption (C), business investment (I), government spending (G) and net exports (exports - imports). You can read more about GDP and the different approaches in calculating at the Wikipedia GDP page.
+The GDP data we will look at is from the United Nations’ National Accounts Main Aggregates Database, which contains estimates of total GDP and its components for all countries from 1970 to today.</description>
     </item>
     
     <item>

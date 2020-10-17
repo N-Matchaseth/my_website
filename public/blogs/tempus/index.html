@@ -8,7 +8,7 @@
 	<meta name="description" content="Masters in Financial Analysis, London Business School">
 	<meta name="author" content="Napat Matchaseth">
 	<meta name="generator" content="Hugo 0.75.1" />
-	<title>Tempus &middot; Portfolio website, Napat M.</title>
+	<title>2016 US presidential election contributors &middot; Portfolio website, Napat M.</title>
 	<!-- Stylesheets -->
 	
 	<link rel="stylesheet" href="/css/main.css"/>
@@ -69,12 +69,112 @@
                     <section id="one">
                         <div class="inner">
                             <header class="major">
-                                <h1>Tempus</h1>
+                                <h1>2016 US presidential election contributors</h1>
                             </header>
                             
                                 <span class="image main"><img src="/img/blogs/pic08.jpg" alt="" /></span>
                             
                             
+
+
+<div id="california-contributors" class="section level1">
+<h1>2016 California Contributors</h1>
+<p>As discussed in class, I would like you to reproduce the plot that shows the top ten cities in highest amounts raised in political contributions in California during the 2016 US Presidential election.</p>
+<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/challenge2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>To get this plot, you must join two dataframes; the one you have with all contributions, and data that can translate zipcodes to cities.
+You can find a file with all US zipcodes, e.g., here <a href="http://www.uszipcodelist.com/download.html" class="uri">http://www.uszipcodelist.com/download.html</a>.</p>
+<p>The easiest way would be to create two plots and then place one next to each other. For this, you will need the <code>patchwork</code> package.
+<a href="https://cran.r-project.org/web/packages/patchwork/index.html" class="uri">https://cran.r-project.org/web/packages/patchwork/index.html</a></p>
+<p>While this is ok, what if one asked you to create the same plot for the top 10 candidates and not just the top two? The most challenging part is how to reorder within categories, and for this you will find Julia Silge’s post on <a href="https://juliasilge.com/blog/reorder-within/">REORDERING AND FACETTING FOR GGPLOT2</a> useful.</p>
+<pre class="r"><code># Make sure you use vroom() as it is significantly faster than read.csv()
+CA_contributors_2016 &lt;- vroom::vroom(here::here(&quot;data&quot;,&quot;CA_contributors_2016.csv&quot;))
+zip_code &lt;- vroom::vroom(here::here(&quot;data&quot;,&quot;zip_code_database.csv&quot;))
+
+glimpse(CA_contributors_2016)</code></pre>
+<pre><code>## Rows: 1,292,843
+## Columns: 4
+## $ cand_nm           &lt;chr&gt; &quot;Clinton, Hillary Rodham&quot;, &quot;Clinton, Hillary Rodh...
+## $ contb_receipt_amt &lt;dbl&gt; 50.0, 200.0, 5.0, 48.3, 40.0, 244.3, 35.0, 100.0,...
+## $ zip               &lt;dbl&gt; 94939, 93428, 92337, 95334, 93011, 95826, 90278, ...
+## $ contb_date        &lt;date&gt; 2016-04-26, 2016-04-20, 2016-04-02, 2016-11-21, ...</code></pre>
+<pre class="r"><code>glimpse(zip_code)</code></pre>
+<pre><code>## Rows: 42,522
+## Columns: 16
+## $ zip                  &lt;chr&gt; &quot;00501&quot;, &quot;00544&quot;, &quot;00601&quot;, &quot;00602&quot;, &quot;00603&quot;, &quot;...
+## $ type                 &lt;chr&gt; &quot;UNIQUE&quot;, &quot;UNIQUE&quot;, &quot;STANDARD&quot;, &quot;STANDARD&quot;, &quot;S...
+## $ primary_city         &lt;chr&gt; &quot;Holtsville&quot;, &quot;Holtsville&quot;, &quot;Adjuntas&quot;, &quot;Aguad...
+## $ acceptable_cities    &lt;chr&gt; NA, NA, NA, NA, &quot;Ramey&quot;, &quot;Ramey&quot;, NA, NA, NA, ...
+## $ unacceptable_cities  &lt;chr&gt; &quot;I R S Service Center&quot;, &quot;Irs Service Center&quot;, ...
+## $ state                &lt;chr&gt; &quot;NY&quot;, &quot;NY&quot;, &quot;PR&quot;, &quot;PR&quot;, &quot;PR&quot;, &quot;PR&quot;, &quot;PR&quot;, &quot;PR&quot;...
+## $ county               &lt;chr&gt; &quot;Suffolk County&quot;, &quot;Suffolk County&quot;, &quot;Adjuntas&quot;...
+## $ timezone             &lt;chr&gt; &quot;America/New_York&quot;, &quot;America/New_York&quot;, &quot;Ameri...
+## $ area_codes           &lt;dbl&gt; 631, 631, 787939, 787, 787, NA, NA, 787939, 78...
+## $ latitude             &lt;dbl&gt; 40.8, 40.8, 18.2, 18.4, 18.4, 18.4, 18.4, 18.2...
+## $ longitude            &lt;dbl&gt; -73.0, -73.0, -66.7, -67.2, -67.2, -67.2, -67....
+## $ world_region         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ country              &lt;chr&gt; &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;...
+## $ decommissioned       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
+## $ estimated_population &lt;dbl&gt; 384, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+## $ notes                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;no NWS da...</code></pre>
+<pre class="r"><code>merge_table &lt;- merge(
+  CA_contributors_2016, zip_code,
+  by=c(&quot;zip&quot;)
+)
+
+glimpse(merge_table)</code></pre>
+<pre><code>## Rows: 1,292,843
+## Columns: 19
+## $ zip                  &lt;dbl&gt; 90001, 90001, 90001, 90001, 90001, 90001, 9000...
+## $ cand_nm              &lt;chr&gt; &quot;Trump, Donald J.&quot;, &quot;Clinton, Hillary Rodham&quot;,...
+## $ contb_receipt_amt    &lt;dbl&gt; 4.00, 38.00, 50.00, 150.00, 10.00, -4.92, 25.0...
+## $ contb_date           &lt;date&gt; 2016-07-12, 2016-08-31, 2016-11-03, 2016-10-0...
+## $ type                 &lt;chr&gt; &quot;STANDARD&quot;, &quot;STANDARD&quot;, &quot;STANDARD&quot;, &quot;STANDARD&quot;...
+## $ primary_city         &lt;chr&gt; &quot;Los Angeles&quot;, &quot;Los Angeles&quot;, &quot;Los Angeles&quot;, &quot;...
+## $ acceptable_cities    &lt;chr&gt; &quot;Firestone Park, Firestone Pk&quot;, &quot;Firestone Par...
+## $ unacceptable_cities  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ state                &lt;chr&gt; &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;...
+## $ county               &lt;chr&gt; &quot;Los Angeles County&quot;, &quot;Los Angeles County&quot;, &quot;L...
+## $ timezone             &lt;chr&gt; &quot;America/Los_Angeles&quot;, &quot;America/Los_Angeles&quot;, ...
+## $ area_codes           &lt;dbl&gt; 2.13e+11, 2.13e+11, 2.13e+11, 2.13e+11, 2.13e+...
+## $ latitude             &lt;dbl&gt; 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34...
+## $ longitude            &lt;dbl&gt; -118, -118, -118, -118, -118, -118, -118, -118...
+## $ world_region         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ country              &lt;chr&gt; &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;, &quot;US&quot;...
+## $ decommissioned       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
+## $ estimated_population &lt;dbl&gt; 36200, 36200, 36200, 36200, 36200, 36200, 3620...
+## $ notes                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...</code></pre>
+<pre class="r"><code># Creating dataset for Top 10 cities by contributions for Hillary and Trump
+hillary_trump &lt;- merge_table %&gt;% 
+  group_by(primary_city, cand_nm) %&gt;% 
+  summarize(total=sum(contb_receipt_amt)) %&gt;% # sum of contribution in each cities for each candidate
+  filter(cand_nm %in% c(&quot;Trump, Donald J.&quot;,&quot;Clinton, Hillary Rodham&quot;)) %&gt;%
+  arrange(desc(total)) %&gt;% 
+  group_by(cand_nm) %&gt;% 
+  slice_head(n=10) # selecting top 10 cities, by candidate
+
+# Prepping for ggplot using tidytext for reordering
+library(tidytext)
+hillary_trump &lt;- hillary_trump %&gt;% 
+  mutate(primary_city = reorder_within(primary_city,total,cand_nm))
+
+# ggplots for Top 10 contribution cities bar chart
+cont_plot &lt;- ggplot(hillary_trump, aes(x=total, y=primary_city, fill=cand_nm)) +
+  geom_bar(stat=&quot;identity&quot;, show.legend = FALSE)+
+  facet_wrap(~cand_nm, scales = c(&quot;free&quot;)) +
+  scale_y_reordered() +
+  scale_fill_manual(values = c(&quot;Blue&quot;,&quot;Red&quot;)) +
+  labs(title = &quot;Where did candidates raised most money?&quot;,
+       x = &quot;Amount raised&quot;,
+       y = NULL)+
+  theme_bw()+
+  theme(axis.text.y = element_text(size=8),
+        axis.text.x = element_text(size=8))+
+  NULL
+
+cont_plot</code></pre>
+<p><img src="/blogs/blog6_files/figure-html/hillary_trump-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+
                         </div>
                     </section>
             <!-- Disqus Inject -->

@@ -1,0 +1,115 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:26:13-05:00"
+description: Do cities in California contribute financially more to Hillary Clinton or Donald Trump?
+draft: false
+image: pic08.jpg
+keywords: ""
+slug: tempus
+title: 2016 US presidential election contributors
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(rvest)    # scrape websites
+library(purrr)  
+library(lubridate) #to handle dates
+```
+
+#  2016 California Contributors
+
+As discussed in class, I would like you to reproduce the plot that shows the top ten cities in highest amounts raised in political contributions in California during the 2016 US Presidential election.
+
+
+
+```{r challenge2, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here::here("images", "challenge2.png"), error = FALSE)
+```
+
+
+To get this plot, you must join two dataframes; the one you have with all contributions, and data that can translate zipcodes to cities.
+You can find a file with all US zipcodes, e.g., here http://www.uszipcodelist.com/download.html. 
+
+The easiest way would be to create two plots and then place one next to each other. For this, you will need the `patchwork` package.
+https://cran.r-project.org/web/packages/patchwork/index.html
+
+While this is ok, what if one asked you to create the same plot for the top 10 candidates and not just the top two? The most challenging part is how to reorder within categories, and for this you will find Julia Silge's post on [REORDERING AND FACETTING FOR GGPLOT2](https://juliasilge.com/blog/reorder-within/) useful.
+
+
+```{r, load_CA_data, warnings= FALSE, message=FALSE}
+# Make sure you use vroom() as it is significantly faster than read.csv()
+CA_contributors_2016 <- vroom::vroom(here::here("data","CA_contributors_2016.csv"))
+zip_code <- vroom::vroom(here::here("data","zip_code_database.csv"))
+
+glimpse(CA_contributors_2016)
+glimpse(zip_code)
+
+merge_table <- merge(
+  CA_contributors_2016, zip_code,
+  by=c("zip")
+)
+
+glimpse(merge_table)
+
+```
+
+```{r,hillary_trump, out.width="100%"}
+# Creating dataset for Top 10 cities by contributions for Hillary and Trump
+hillary_trump <- merge_table %>% 
+  group_by(primary_city, cand_nm) %>% 
+  summarize(total=sum(contb_receipt_amt)) %>% # sum of contribution in each cities for each candidate
+  filter(cand_nm %in% c("Trump, Donald J.","Clinton, Hillary Rodham")) %>%
+  arrange(desc(total)) %>% 
+  group_by(cand_nm) %>% 
+  slice_head(n=10) # selecting top 10 cities, by candidate
+
+# Prepping for ggplot using tidytext for reordering
+library(tidytext)
+hillary_trump <- hillary_trump %>% 
+  mutate(primary_city = reorder_within(primary_city,total,cand_nm))
+
+# ggplots for Top 10 contribution cities bar chart
+cont_plot <- ggplot(hillary_trump, aes(x=total, y=primary_city, fill=cand_nm)) +
+  geom_bar(stat="identity", show.legend = FALSE)+
+  facet_wrap(~cand_nm, scales = c("free")) +
+  scale_y_reordered() +
+  scale_fill_manual(values = c("Blue","Red")) +
+  labs(title = "Where did candidates raised most money?",
+       x = "Amount raised",
+       y = NULL)+
+  theme_bw()+
+  theme(axis.text.y = element_text(size=8),
+        axis.text.x = element_text(size=8))+
+  NULL
+
+cont_plot
+```
+
