@@ -5,9 +5,9 @@ categories:
 date: "2017-10-31T21:28:43-05:00"
 description: "How has components of GDP change over time?"
 draft: false
-image: pic10.jpg
+image: gdp.jpeg
 keywords: ""
-slug: ipsum
+slug: gdp
 title: GDP components over time & among countries
 ---
 

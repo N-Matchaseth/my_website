@@ -100,27 +100,27 @@ disqusShortname = ""
     
     [[params.tiles.showcase]]
       title = "Project 1"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic01.jpg"
-      url = "blogs/aliquam"
+      subtitle = "Alcohol consumption around the world"
+      image = "alcohol.jpg"
+      url = "blogs/alcohol"
 
     [[params.tiles.showcase]]
       title = "Project 2"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic02.jpg"
-      url = "blogs/tempus"
+      subtitle = "2016 presidential election contributors"
+      image = "election.jpg"
+      url = "blogs/election"
 
     [[params.tiles.showcase]]
       title = "Project 3"
-      subtitle = "Lorem Etiam Nullam"
-      image = "pic03.jpg"
-      url = "blogs/magna"
+      subtitle = "TfL bike rentals"
+      image = "bike.jpg"
+      url = "blogs/bike"
 
     [[params.tiles.showcase]]
       title = "Project 4"
-      subtitle = "Nisl Sed Aliquam"
-      image = "pic04.jpg"
-      url = "blogs/ipsum"
+      subtitle = "Exploring GDP components"
+      image = "gdp.jpeg"
+      url = "blogs/gdp"
 
 #    [[params.tiles.showcase]]
 #      title = "Consequat"

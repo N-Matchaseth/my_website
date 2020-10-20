@@ -5,9 +5,9 @@ categories:
 date: "2017-10-31T22:26:13-05:00"
 description: Do cities in California contribute financially more to Hillary Clinton or Donald Trump?
 draft: false
-image: pic08.jpg
+image: election.jpg
 keywords: ""
-slug: tempus
+slug: election
 title: 2016 US presidential election contributors
 ---
 

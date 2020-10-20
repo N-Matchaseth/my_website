@@ -5,9 +5,9 @@ categories:
 date: "2017-10-31T22:26:09-05:00"
 description: What are the current trends for bike rentals in London?
 draft: false
-image: pic09.jpg
+image: bike.jpg
 keywords: ""
-slug: magna
+slug: bike
 title: TfL bike rentals
 ---
 
