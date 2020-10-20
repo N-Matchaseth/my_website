@@ -41,7 +41,7 @@ library(readxl)
 library(vroom)
 ```
 
-# Rentals in TfL bike sharing
+## How are the existing bike trends affected by the pandemic?
 
 The [TfL data](https://data.london.gov.uk/dataset/number-bicycle-hires) shows how many Santander bikes were hired every single day. We can get the latest data by running the following:
 
