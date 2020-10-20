@@ -13,15 +13,14 @@ title: GDP components over time & among countries
 
 
 
-<p>At the risk of oversimplifying things, the main components of gross domestic product, GDP are personal consumption (C), business investment (I), government spending (G) and net exports (exports - imports). You can read more about GDP and the different approaches in calculating at the <a href="https://en.wikipedia.org/wiki/Gross_domestic_product">Wikipedia GDP page</a>.</p>
-<p>The GDP data we will look at is from the <a href="https://unstats.un.org/unsd/snaama/Downloads">United Nations’ National Accounts Main Aggregates Database</a>, which contains estimates of total GDP and its components for all countries from 1970 to today. We will look at how GDP and its components have changed over time, and compare different countries and how much each component contributes to that country’s GDP. The file we will work with is <a href="http://unstats.un.org/unsd/amaapi/api/file/6">GDP and its breakdown at constant 2010 prices in US Dollars</a> and it has already been saved in the Data directory. Have a look at the Excel file to see how it is structured and organised</p>
+<div id="how-has-the-main-components-of-gdp-changed" class="section level2">
+<h2>How has the main components of GDP changed?</h2>
+<p>From my economics class, the main components of gross domestic product, GDP are personal consumption (C), business investment (I), government spending (G) and net exports (exports - imports).</p>
+<p>The GDP data we will look at is from the <a href="https://unstats.un.org/unsd/snaama/Downloads">United Nations’ National Accounts Main Aggregates Database</a>, which contains estimates of total GDP and its components for all countries from 1970 to today. We will look at how GDP and its components have changed over time, and compare different countries and how much each component contributes to that country’s GDP.</p>
 <pre class="r"><code>UN_GDP_data  &lt;-  read_excel(here::here(&quot;data&quot;, &quot;Download-GDPconstant-USD-countries.xls&quot;), # Excel filename
                 sheet=&quot;Download-GDPconstant-USD-countr&quot;, # Sheet name
                 skip=2) # Number of rows to skip</code></pre>
-<p>The first thing you need to do is to tidy the data, as it is in wide format and you must make it into long, tidy format. Please express all figures in billions (divide values by <code>1e9</code>, or <span class="math inline">\(10^9\)</span>), and you want to rename the indicators into something shorter.</p>
-<blockquote>
-<p>make sure you remove <code>eval=FALSE</code> from the next chunk of R code– I have it there so I could knit the document</p>
-</blockquote>
+<p>Firstly, I tidied the data by converting it from a wide into long tidy format. I also express all figures in billions, as well as renaming the indicators.</p>
 <pre class="r"><code>tidy_GDP_data  &lt;-  UN_GDP_data %&gt;% 
   #Reshaping data into tidy format
   pivot_longer(cols = 4:51,
@@ -61,9 +60,7 @@ glimpse(tidy_GDP_data)</code></pre>
 ## $ values        &lt;dbl&gt; 5.559, 5.065, 0.372, 0.985, 0.985, 0.112, 0.184, 10.7...</code></pre>
 <pre class="r"><code># Let us compare GDP components for these 3 countries
 country_list &lt;- c(&quot;United States&quot;,&quot;India&quot;, &quot;Germany&quot;)</code></pre>
-<p>First, can you produce this plot?</p>
-<pre class="r"><code>knitr::include_graphics(here::here(&quot;images&quot;, &quot;gdp1.png&quot;), error = FALSE)</code></pre>
-<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/gdp1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Next, I visualized the changes in the main GDP components over time for 3 different countries (USA, India and Germany).</p>
 <pre class="r"><code>#Filtering relevant variables
 filter_tidy &lt;- tidy_GDP_data %&gt;% 
 filter(
@@ -83,14 +80,8 @@ gdp_components &lt;- ggplot(filter_tidy, aes(x = year, y = values, colour = Indi
   NULL
   
   gdp_components</code></pre>
-<p><img src="/blogs/blog8_files/figure-html/gdp1-2.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>Secondly, recall that GDP is the sum of Household Expenditure (Consumption <em>C</em>), Gross Capital Formation (business investment <em>I</em>), Government Expenditure (G) and Net Exports (exports - imports). Even though there is an indicator <code>Gross Domestic Product (GDP)</code> in your dataframe, I would like you to calculate it given its components discussed above.</p>
-<blockquote>
-<p>What is the % difference between what you calculated as GDP and the GDP figure included in the dataframe?</p>
-</blockquote>
-<p>The % difference varies across time and countries, as shown in the 3rd graph below. The largest % difference is reached by India which has up to 8% difference. And the smallest % difference is Germany, which hasn’t reached more than 4% difference.</p>
-<pre class="r"><code>knitr::include_graphics(here::here(&quot;images&quot;, &quot;gdp2.png&quot;), error = FALSE)</code></pre>
-<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/gdp2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="/blogs/blog8_files/figure-html/gdp1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Secondly, I looked at the main components of GDP of Household Expenditure (Consumption <em>C</em>), Gross Capital Formation (business investment <em>I</em>), Government Expenditure (G) and Net Exports (exports - imports), and visualize it as a percentage of total GDP.</p>
 <pre class="r"><code>tidy_GDP_data2 &lt;- UN_GDP_data %&gt;% 
   #Reshaping data into tidy format
   pivot_longer(cols = 4:51,
@@ -136,7 +127,12 @@ gdp_components2 &lt;- ggplot(filter_tidy2, aes(x = year, y = proportion, colour 
   NULL
   
 gdp_components2</code></pre>
-<p><img src="/blogs/blog8_files/figure-html/gdp2-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="/blogs/blog8_files/figure-html/gdp2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The chart illustrates the evolution over time of GDP components as a % of total GDP. We can notice that while the US has known some small changes, India has experienced large shifts in some of its components.</p>
+<p>India has seen a boom in its gross capital formation illustrating large inflows of capital that came in the Indian economy. The share of its household expenditure declined. This decline is relative to GDP so it is likely that Indian GDP increased highly while household expenditure stagnated.</p>
+<p>Germany has considerably increased the share of its Net exports, illustrating the success of the German manufacturing industry.</p>
+<p>The US has increased its share of household expenditure and Gross capital formation, while its Net Exports and Government expenditures decreased. Illustrating the liberalization of the US economy and how it relies on its internal consumption.</p>
+<p>Lastly, we compared the GDP calculated from the main components with actual GDP that is given by the data.</p>
 <pre class="r"><code>#Comparing calculated GDP to GDP that is given
 filter_tidy3 &lt;- tidy_GDP_data2 %&gt;% 
   filter(Country %in% country_list,
@@ -151,11 +147,6 @@ gdp_components3 &lt;- ggplot(filter_tidy3, aes(x = year, y = proportion, colour 
   theme_bw()
 
 gdp_components3</code></pre>
-<p><img src="/blogs/blog8_files/figure-html/gdp2-3.png" width="100%" style="display: block; margin: auto;" /></p>
-<blockquote>
-<p>What is this last chart telling you? Can you explain in a couple of paragraphs the different dynamic among these three countries?</p>
-</blockquote>
-<p>The chart illustrates the evolution over time of GDP components as a % of total GDP. We can notice that while the US has known some small changes, India has experienced large shifts in some of its components.</p>
-<p>India has seen a boom in its gross capital formation illustrating large inflows of capital that came in the Indian economy. The share of its household expenditure declined. This decline is relative to GDP so it is likely that Indian GDP increased highly while household expenditure stagnated.</p>
-<p>Germany has considerably increased the share of its Net exports, illustrating the success of the German manufacturing industry.</p>
-<p>The US has increased its share of household expenditure and Gross capital formation, while its Net Exports and Government expenditures decreased. Illustrating the liberalization of the US economy and how it relies on its internal consumption.</p>
+<p><img src="/blogs/blog8_files/figure-html/gdp_comparison-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The % difference varies across time and countries, as shown in the 3rd graph below. The largest % difference is reached by India which has up to 8% difference. And the smallest % difference is Germany, which hasn’t reached more than 4% difference.</p>
+</div>

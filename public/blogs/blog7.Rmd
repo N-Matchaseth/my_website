@@ -41,9 +41,9 @@ library(readxl)
 library(vroom)
 ```
 
-# Challenge 2: Excess rentals in TfL bike sharing
+# Rentals in TfL bike sharing
 
-Recall the TfL data on how many bikes were hired every single day. We can get the latest data by running the following
+The [TfL data](https://data.london.gov.uk/dataset/number-bicycle-hires) shows how many Santander bikes were hired every single day. We can get the latest data by running the following:
 
 ```{r, get_tfl_data, cache=TRUE}
 url <- "https://data.london.gov.uk/download/number-bicycle-hires/ac29363e-e0cb-47cc-a97a-e216d900a6b0/tfl-daily-cycle-hires.xlsx"
@@ -65,27 +65,8 @@ bike <- bike0 %>%
           week = isoweek(day))
 ```
 
+Here, I created a facet grid to visualize the number of bikes hired by month and year, from 2015-2020. The blue line shows the monthly average from 2015-2019.
 
-
-We can easily create a facet grid that plots bikes hired by month and year.
-
-```{r tfl_month_year_grid, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "tfl_distributions_monthly.png"), error = FALSE)
-```
-
-Look at May and Jun and compare 2020 with the previous years. What's happening?
-
-However, the challenge I want you to work on is to reproduce the following two graphs.
-
-```{r tfl_absolute_monthly_change, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "tfl_monthly.png"), error = FALSE)
-```
-
-The second one looks at percentage changes from the expected level of weekly rentals. The two grey shaded rectangles correspond to the second (weeks 14-26) and fourth (weeks 40-52) quarters.
-
-```{r tfl_percent_change, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "tfl_weekly.png"), error = FALSE)
-```
 ```{r, out.width="100%"}
 #First graph
 
@@ -105,7 +86,7 @@ bikes_exp <- bike %>%
   mutate(excess_pos = ifelse(excess_hires >= 0, actual_hires, expected_hires)) %>%  
     mutate(excess_neg = ifelse(excess_hires < 0, actual_hires, expected_hires)) %>%  
   ggplot(aes(x = month, y =expected_hires, group = 1, fill = excess_hires)) +
-  stat_summary(fun.y=sum, geom="line", color = "darkblue", size = 0.3) + 
+  stat_summary(fun.y=sum, geom="line", color = "darkblue", size = 1) + 
   geom_line(aes(month, actual_hires), color = "black", size = 0.1, alpha = 0.5)+
   geom_ribbon(aes(ymin = excess_neg , ymax = expected_hires), fill = "#E77471", alpha = 0.8) +
       geom_ribbon(aes(ymin = expected_hires , ymax = excess_pos), fill = "#90EE90", alpha = 0.8) +
@@ -124,6 +105,10 @@ bikes_exp <- bike %>%
           axis.text.x = element_text(hjust=1, size = 6))
 
 ```
+
+Next, I created a second graph that looks at percentage changes from the expected level of weekly rentals.
+
+I used mean to calculate the expected rentals here, but median is usually used when there are many outliers. In this data I didn't notice many of them. Finally, I compare that week/month of 2020 to the expected rentals.
 
 ```{r}
 #Second graph
@@ -166,8 +151,5 @@ bikes_exp <- bike %>%
 
 ```
 
+There seems to be a lot of deviation from the expected monthly rentals in 2020, signifying the Covid-19 impact on bike sharing. Whether there is a long-term effect, however, is yet to be determined.
 
-For both of these graphs, you have to calculate the expected number of rentals per week or month between 2015-2019 and then, see how each week/month of 2020 compares to the expected rentals. Think of the calculation `excess_rentals = actual_rentals - expected_rentals`. 
-
-Should you use the mean or the median to calculate your expected rentals? Why?
->I used mean here, but median is usually used when there are many outliers. In this data I didn't notice many of them.

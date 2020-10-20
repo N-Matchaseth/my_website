@@ -47,9 +47,9 @@ library(lubridate) #to handle dates
 
 
 
-# Where Do People Drink The Most Beer, Wine And Spirits?
+## Where Do People Drink The Most Beer, Wine And Spirits?
 
-Back in 2014, [fivethiryeight.com](https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/) published an article on alchohol consumption in different countries. The data `drinks` is available as part of the `fivethirtyeight` package. Make sure you have installed the `fivethirtyeight` package before proceeding.
+Back in 2014, [fivethiryeight.com](https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/) published an article on alcohol consumption in different countries. The data `drinks` is available as part of the `fivethirtyeight` package. I installed the `fivethirtyeight` package before proceeding further.
 
 
 ```{r, load_alcohol_data}
@@ -62,8 +62,7 @@ data(drinks)
 
 ```
 
-
-What are the variable types? Any missing values we should worry about? 
+Firstly, I used `glimpse` to briefly look into variable types
 
 ```{r glimpse_skim_data}
 # Glimpse at data
@@ -72,7 +71,7 @@ glimpse(drinks)
 ```
 
 
-Make a plot that shows the top 25 beer consuming countries
+Then, I made a plot that shows the top 25 beer consuming countries
 
 ```{r beer_plot}
 # Bar chart of Top 25 Beer countries
@@ -82,7 +81,7 @@ arrange(desc(beer_servings)) %>%
 head(25)
 
 beer_plot <- ggplot(beer_top25, aes(y=reorder(country,beer_servings),x=beer_servings)) + 
-geom_col()+ 
+geom_col(fill = "#FFD355")+ 
 labs(title = "Top 25 beer consuming countries",
 x= "Beer consumption (servings)",
 y= "Countries") +
@@ -91,7 +90,7 @@ NULL
 beer_plot
 ```
 
-Make a plot that shows the top 25 wine consuming countries
+Next, a plot that shows the top 25 wine consuming countries
 
 ```{r wine_plot}
 
@@ -101,7 +100,7 @@ arrange(desc(wine_servings)) %>%
 head(25)
 
 wine_plot <- ggplot(wine_top25, aes(y=reorder(country,wine_servings),x=wine_servings)) + 
-geom_col()+ 
+geom_col(fill = "#b11226")+ 
 labs(title = "Top 25 wine consuming countries",
 x= "Wine consumption (servings)",
 y= "Countries") +
@@ -111,7 +110,8 @@ wine_plot
 
 ```
 
-Finally, make a plot that shows the top 25 spirit consuming countries
+Finally, a plot that shows the top 25 spirit consuming countries
+
 ```{r spirit_plot}
 # Bar chart of Top 25 Spirits countries
 spirits_top25 <- drinks %>% 
@@ -129,14 +129,14 @@ spirits_plot
 
 ```
 
-What can you infer from these plots? Don't just explain what's in the graph, but speculate or tell a short story (1-2 paragraphs max).
+You can see from the Top 25 spirits chart that Thailand, my home country, is there! We do consume a lot of spirits.
 
-For beer servings, it is unexpected
+In general, the results for these graphs show that:
 
-Bigger range in spirits compared to wine & beer
-Continental/regional differences between the 3 alcohol consumption
-There is a relationship between wine consuming and wine producing countries, wine producers in top 25 consumption
-High income countries tend to consume wine, while lower income countries consume more of beer and spirits (cheaper? more available?)
+* Bigger consumption range in spirits compared to wine & beer
+* There are continental/regional differences between the 3 alcohol consumption
+* There is a relationship between wine consuming and wine producing countries, wine producers (eg. France) in top 25 consumption
+* High income countries tend to consume wine, while lower income countries consume more of beer and spirits (perhaps cheaper? or more available?)
 
 
 

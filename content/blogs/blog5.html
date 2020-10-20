@@ -13,16 +13,16 @@ title: Alcohol consumption around the world
 
 
 
-<div id="where-do-people-drink-the-most-beer-wine-and-spirits" class="section level1">
-<h1>Where Do People Drink The Most Beer, Wine And Spirits?</h1>
-<p>Back in 2014, <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">fivethiryeight.com</a> published an article on alchohol consumption in different countries. The data <code>drinks</code> is available as part of the <code>fivethirtyeight</code> package. Make sure you have installed the <code>fivethirtyeight</code> package before proceeding.</p>
+<div id="where-do-people-drink-the-most-beer-wine-and-spirits" class="section level2">
+<h2>Where Do People Drink The Most Beer, Wine And Spirits?</h2>
+<p>Back in 2014, <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">fivethiryeight.com</a> published an article on alcohol consumption in different countries. The data <code>drinks</code> is available as part of the <code>fivethirtyeight</code> package. I installed the <code>fivethirtyeight</code> package before proceeding further.</p>
 <pre class="r"><code>library(fivethirtyeight)
 data(drinks)
 
 
 # or download directly
 # alcohol_direct &lt;- read_csv(&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv&quot;)</code></pre>
-<p>What are the variable types? Any missing values we should worry about?</p>
+<p>Firstly, I used <code>glimpse</code> to briefly look into variable types</p>
 <pre class="r"><code># Glimpse at data
 glimpse(drinks)</code></pre>
 <pre><code>## Rows: 193
@@ -32,7 +32,7 @@ glimpse(drinks)</code></pre>
 ## $ spirit_servings              &lt;int&gt; 0, 132, 0, 138, 57, 128, 25, 179, 72, ...
 ## $ wine_servings                &lt;int&gt; 0, 54, 14, 312, 45, 45, 221, 11, 212, ...
 ## $ total_litres_of_pure_alcohol &lt;dbl&gt; 0.0, 4.9, 0.7, 12.4, 5.9, 4.9, 8.3, 3....</code></pre>
-<p>Make a plot that shows the top 25 beer consuming countries</p>
+<p>Then, I made a plot that shows the top 25 beer consuming countries</p>
 <pre class="r"><code># Bar chart of Top 25 Beer countries
 
 beer_top25 &lt;- drinks %&gt;% 
@@ -40,7 +40,7 @@ arrange(desc(beer_servings)) %&gt;%
 head(25)
 
 beer_plot &lt;- ggplot(beer_top25, aes(y=reorder(country,beer_servings),x=beer_servings)) + 
-geom_col()+ 
+geom_col(fill = &quot;#FFD355&quot;)+ 
 labs(title = &quot;Top 25 beer consuming countries&quot;,
 x= &quot;Beer consumption (servings)&quot;,
 y= &quot;Countries&quot;) +
@@ -48,14 +48,14 @@ NULL
 
 beer_plot</code></pre>
 <p><img src="/blogs/blog5_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>Make a plot that shows the top 25 wine consuming countries</p>
+<p>Next, a plot that shows the top 25 wine consuming countries</p>
 <pre class="r"><code># Bar chart of Top 25 Wine countries
 wine_top25 &lt;- drinks %&gt;% 
 arrange(desc(wine_servings)) %&gt;% 
 head(25)
 
 wine_plot &lt;- ggplot(wine_top25, aes(y=reorder(country,wine_servings),x=wine_servings)) + 
-geom_col()+ 
+geom_col(fill = &quot;#b11226&quot;)+ 
 labs(title = &quot;Top 25 wine consuming countries&quot;,
 x= &quot;Wine consumption (servings)&quot;,
 y= &quot;Countries&quot;) +
@@ -63,7 +63,7 @@ NULL
 
 wine_plot</code></pre>
 <p><img src="/blogs/blog5_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>Finally, make a plot that shows the top 25 spirit consuming countries</p>
+<p>Finally, a plot that shows the top 25 spirit consuming countries</p>
 <pre class="r"><code># Bar chart of Top 25 Spirits countries
 spirits_top25 &lt;- drinks %&gt;% 
 arrange(desc(spirit_servings)) %&gt;% 
@@ -78,10 +78,12 @@ NULL
 
 spirits_plot</code></pre>
 <p><img src="/blogs/blog5_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>What can you infer from these plots? Don’t just explain what’s in the graph, but speculate or tell a short story (1-2 paragraphs max).</p>
-<p>For beer servings, it is unexpected</p>
-<p>Bigger range in spirits compared to wine &amp; beer
-Continental/regional differences between the 3 alcohol consumption
-There is a relationship between wine consuming and wine producing countries, wine producers in top 25 consumption
-High income countries tend to consume wine, while lower income countries consume more of beer and spirits (cheaper? more available?)</p>
+<p>You can see from the Top 25 spirits chart that Thailand, my home country, is there! We do consume a lot of spirits.</p>
+<p>In general, the results for these graphs show that:</p>
+<ul>
+<li>Bigger consumption range in spirits compared to wine &amp; beer</li>
+<li>There are continental/regional differences between the 3 alcohol consumption</li>
+<li>There is a relationship between wine consuming and wine producing countries, wine producers (eg. France) in top 25 consumption</li>
+<li>High income countries tend to consume wine, while lower income countries consume more of beer and spirits (perhaps cheaper? or more available?)</li>
+</ul>
 </div>

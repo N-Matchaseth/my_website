@@ -56,7 +56,7 @@
         </ul>
         <ul class="actions vertical">
             
-                <li><a href="/blogs" class="button special fit">Get Started</a></li>
+                <li><a href="/blogs" class="button special fit">My Projects</a></li>
             
             
         </ul>
@@ -77,9 +77,9 @@
                             
 
 
-<div id="challenge-2-excess-rentals-in-tfl-bike-sharing" class="section level1">
-<h1>Challenge 2: Excess rentals in TfL bike sharing</h1>
-<p>Recall the TfL data on how many bikes were hired every single day. We can get the latest data by running the following</p>
+<div id="rentals-in-tfl-bike-sharing" class="section level1">
+<h1>Rentals in TfL bike sharing</h1>
+<p>The <a href="https://data.london.gov.uk/dataset/number-bicycle-hires">TfL data</a> shows how many Santander bikes were hired every single day. We can get the latest data by running the following:</p>
 <pre class="r"><code>url &lt;- &quot;https://data.london.gov.uk/download/number-bicycle-hires/ac29363e-e0cb-47cc-a97a-e216d900a6b0/tfl-daily-cycle-hires.xlsx&quot;
 
 # Download TFL data to temporary file
@@ -102,13 +102,7 @@ bike &lt;- bike0 %&gt;%
   mutate (year = year(day),
           month = lubridate::month(day, label = TRUE),
           week = isoweek(day))</code></pre>
-<p>We can easily create a facet grid that plots bikes hired by month and year.</p>
-<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/tfl_distributions_monthly.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>Look at May and Jun and compare 2020 with the previous years. What’s happening?</p>
-<p>However, the challenge I want you to work on is to reproduce the following two graphs.</p>
-<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/tfl_monthly.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>The second one looks at percentage changes from the expected level of weekly rentals. The two grey shaded rectangles correspond to the second (weeks 14-26) and fourth (weeks 40-52) quarters.</p>
-<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/tfl_weekly.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Here, I created a facet grid to visualize the number of bikes hired by month and year, from 2015-2020. The blue line shows the monthly average from 2015-2019.</p>
 <pre class="r"><code>#First graph
 
 bikes_exp &lt;- bike %&gt;% 
@@ -127,7 +121,7 @@ bikes_exp &lt;- bike %&gt;%
   mutate(excess_pos = ifelse(excess_hires &gt;= 0, actual_hires, expected_hires)) %&gt;%  
     mutate(excess_neg = ifelse(excess_hires &lt; 0, actual_hires, expected_hires)) %&gt;%  
   ggplot(aes(x = month, y =expected_hires, group = 1, fill = excess_hires)) +
-  stat_summary(fun.y=sum, geom=&quot;line&quot;, color = &quot;darkblue&quot;, size = 0.3) + 
+  stat_summary(fun.y=sum, geom=&quot;line&quot;, color = &quot;darkblue&quot;, size = 1) + 
   geom_line(aes(month, actual_hires), color = &quot;black&quot;, size = 0.1, alpha = 0.5)+
   geom_ribbon(aes(ymin = excess_neg , ymax = expected_hires), fill = &quot;#E77471&quot;, alpha = 0.8) +
       geom_ribbon(aes(ymin = expected_hires , ymax = excess_pos), fill = &quot;#90EE90&quot;, alpha = 0.8) +
@@ -145,6 +139,8 @@ bikes_exp &lt;- bike %&gt;%
     theme(plot.title = element_text(size=12, face = &quot;bold&quot;), plot.subtitle = element_text(size = 10), 
           axis.text.x = element_text(hjust=1, size = 6))</code></pre>
 <p><img src="/blogs/blog7_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Next, I created a second graph that looks at percentage changes from the expected level of weekly rentals.</p>
+<p>I used mean to calculate the expected rentals here, but median is usually used when there are many outliers. In this data I didn’t notice many of them. Finally, I compare that week/month of 2020 to the expected rentals.</p>
 <pre class="r"><code>#Second graph
 
 bikes_exp &lt;- bike %&gt;% 
@@ -183,9 +179,7 @@ bikes_exp &lt;- bike %&gt;%
     theme(plot.title = element_text(size=12, face = &quot;bold&quot;), plot.subtitle = element_text(size = 10), 
           axis.text.x = element_text(hjust=1, size = 10), legend.position = &quot;none&quot;)</code></pre>
 <p><img src="/blogs/blog7_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>For both of these graphs, you have to calculate the expected number of rentals per week or month between 2015-2019 and then, see how each week/month of 2020 compares to the expected rentals. Think of the calculation <code>excess_rentals = actual_rentals - expected_rentals</code>.</p>
-<p>Should you use the mean or the median to calculate your expected rentals? Why?
-&gt;I used mean here, but median is usually used when there are many outliers. In this data I didn’t notice many of them.</p>
+<p>There seems to be a lot of deviation from the expected monthly rentals in 2020, signifying the Covid-19 impact on bike sharing. Whether there is a long-term effect, however, is yet to be determined.</p>
 </div>
 
                         </div>

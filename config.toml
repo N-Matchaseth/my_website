@@ -68,7 +68,7 @@ disqusShortname = ""
 
     # Button Style 1
     [[params.navigation.button1]]
-      name = "Get Started"
+      name = "My Projects"
       url = "blogs"
 
     # Button Style 2
@@ -81,16 +81,9 @@ disqusShortname = ""
   [params.banner]
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
-    title = "Welcome to Napat Matchaseth's website"
-    subtitle = "This is my data analytics portfolio"
+    title = "Welcome to Napat M.'s website"
+    subtitle = "This is my data analytics project portfolio"
     buttonText = "Start Exploring"
-
-  [params.blog]
-    # All blogs defined in their own files. You can find example blogs
-    # at 'exampleSite/content/blogs'. Copy the 'blogs' folder into the 'content' directory
-    # at the root of this Hugo site.
-    # For more informtion take a look at the README.
-    # To add more blogs just copy and paste the code.
 
 
   # Tiles Section
@@ -135,22 +128,29 @@ disqusShortname = ""
 #      url = "blogs/ipsum"
     # You can make more showcases by copy and pasting the code above
 
+  [params.blog]
+    # All blogs defined in their own files. You can find example blogs
+    # at 'exampleSite/content/blogs'. Copy the 'blogs' folder into the 'content' directory
+    # at the root of this Hugo site.
+    # For more informtion take a look at the README.
+    # To add more blogs just copy and paste the code.
+
   # Section Type Two
   [params.two]
     enable = true
-    title = "About this website"
+    title = "About me"
     subtitle = """
-    My name is Napat Matchaseth, and I am currently a Masters in Financial Analysis student at London Business School.
-    Previously, I graduated from London School of Economics and then worked in strategy consulting for a year.
+    My name is Napat Matchaseth, currently a Masters in Financial Analysis student at London Business School.
+    I graduated from London School of Economics and then worked in strategy consulting for a year.
     Currently, I am looking for a career change into financial services industry, particularly in asset management. 
     Data science has become increasingly popular, especially in financial services industry.
     Therefore, I am eager to learn about various methods of data analytics. 
-    This website contains a preview of  my work from my data analytics course.
+    This website contains a preview of my work from my data analytics course.
     Enjoy!"""
     buttonText = "My projects"
     url = "blogs"
-    buttonText2 = "My CV"
-    url2 = "blogs"
+#    buttonText2 = "My CV"
+#    url2 = "blogs/CV_Napat.pdf"
 
 
   # Contact section

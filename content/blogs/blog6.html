@@ -8,20 +8,13 @@ draft: false
 image: election.jpg
 keywords: ""
 slug: election
-title: 2016 US presidential election contributors
+title: 2016 US presidential election California contributors
 ---
 
 
 
-<div id="california-contributors" class="section level1">
-<h1>2016 California Contributors</h1>
-<p>As discussed in class, I would like you to reproduce the plot that shows the top ten cities in highest amounts raised in political contributions in California during the 2016 US Presidential election.</p>
-<p><img src="C:/Users/Napat/Documents/LBS materials/Term 1/CA09 Data Analytics for Finance/my_website/images/challenge2.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>To get this plot, you must join two dataframes; the one you have with all contributions, and data that can translate zipcodes to cities.
-You can find a file with all US zipcodes, e.g., here <a href="http://www.uszipcodelist.com/download.html" class="uri">http://www.uszipcodelist.com/download.html</a>.</p>
-<p>The easiest way would be to create two plots and then place one next to each other. For this, you will need the <code>patchwork</code> package.
-<a href="https://cran.r-project.org/web/packages/patchwork/index.html" class="uri">https://cran.r-project.org/web/packages/patchwork/index.html</a></p>
-<p>While this is ok, what if one asked you to create the same plot for the top 10 candidates and not just the top two? The most challenging part is how to reorder within categories, and for this you will find Julia Silge’s post on <a href="https://juliasilge.com/blog/reorder-within/">REORDERING AND FACETTING FOR GGPLOT2</a> useful.</p>
+<p>The objective of this project is to produce a plot that shows the top ten cities in highest amounts raised in political contributions in California during the 2016 US Presidential election, for Hillary Clinton and Donald Trump.</p>
+<p>First of all, I have to join two dataframes; the data on all contributions, and data that can translate <a href="http://www.uszipcodelist.com/download.html">zipcodes</a> to cities.</p>
 <pre class="r"><code># Make sure you use vroom() as it is significantly faster than read.csv()
 CA_contributors_2016 &lt;- vroom::vroom(here::here(&quot;data&quot;,&quot;CA_contributors_2016.csv&quot;))
 zip_code &lt;- vroom::vroom(here::here(&quot;data&quot;,&quot;zip_code_database.csv&quot;))
@@ -79,6 +72,7 @@ glimpse(merge_table)</code></pre>
 ## $ decommissioned       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
 ## $ estimated_population &lt;dbl&gt; 36200, 36200, 36200, 36200, 36200, 36200, 3620...
 ## $ notes                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...</code></pre>
+<p>For the visualization, I followed the method suggested by Julia Silge’s post on <a href="https://juliasilge.com/blog/reorder-within/">REORDERING AND FACETTING FOR GGPLOT2</a> in order to reorder within candidate category.</p>
 <pre class="r"><code># Creating dataset for Top 10 cities by contributions for Hillary and Trump
 hillary_trump &lt;- merge_table %&gt;% 
   group_by(primary_city, cand_nm) %&gt;% 
@@ -109,4 +103,4 @@ cont_plot &lt;- ggplot(hillary_trump, aes(x=total, y=primary_city, fill=cand_nm)
 
 cont_plot</code></pre>
 <p><img src="/blogs/blog6_files/figure-html/hillary_trump-1.png" width="100%" style="display: block; margin: auto;" /></p>
-</div>
+<p>In terms of sheer amount of contribution, Hillary received a lot more than Trump did from cities in California, although mostly concentrated in LA and SF. This is to be expected, as California has traditionally been a Democratic stronghold in presidential elections. I wonder if there will be any changes to these contribution levels in the upcoming presidential election in 2020!</p>
